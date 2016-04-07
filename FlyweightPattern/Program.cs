@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace DoFactory.GangOfFour.Flyweight.Structural
 {
@@ -12,11 +13,22 @@ namespace DoFactory.GangOfFour.Flyweight.Structural
     }
 
     /// <summary>
+    /// The 'ConcreteFlyweight' class
+    /// </summary>
+    class ConcreteFlyweight : Flyweight 
+    {
+        public override void Operation(int extrinsicstate)
+        {
+            Console.WriteLine("ConcreteFlyweight: " + extrinsicstate);
+        }
+    }
+
+    /// <summary>
     /// The 'FlyweightFactory' class
     /// </summary>
     class FlyweightFactory
     {
-        private Hashtable flyweights = new Hashtable(); // used to store concrete classes
+        private Dictionary<string, Flyweight> flyweights = new Dictionary<string, Flyweight>(); // used to store concrete classes
 
         // Constructor
         public FlyweightFactory()
@@ -32,17 +44,6 @@ namespace DoFactory.GangOfFour.Flyweight.Structural
         }
     }
 
-    /// <summary>
-    /// The 'ConcreteFlyweight' class
-    /// </summary>
-    class ConcreteFlyweight : Flyweight 
-    {
-        public override void Operation(int extrinsicstate)
-        {
-            Console.WriteLine("ConcreteFlyweight: " + extrinsicstate);
-        }
-    }
-    
     /// <summary>
     /// MainApp startup class for Structural 
     /// Flyweight Design Pattern.
