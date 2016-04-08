@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace DoFactory.GangOfFour.Flyweight.Structural
 {
@@ -12,11 +13,22 @@ namespace DoFactory.GangOfFour.Flyweight.Structural
     }
 
     /// <summary>
+    /// The 'ConcreteFlyweight' class
+    /// </summary>
+    class ConcreteFlyweight : Flyweight 
+    {
+        public override void Operation(int extrinsicstate)
+        {
+            Console.WriteLine("ConcreteFlyweight: " + extrinsicstate);
+        }
+    }
+
+    /// <summary>
     /// The 'FlyweightFactory' class
     /// </summary>
     class FlyweightFactory
     {
-        public Hashtable flyweights = new Hashtable(); // used to store concrete classes
+        private Dictionary<string, Flyweight> flyweights = new Dictionary<string, Flyweight>(); // used to store concrete classes
 
         // Constructor
         public FlyweightFactory()
@@ -32,17 +44,6 @@ namespace DoFactory.GangOfFour.Flyweight.Structural
         }
     }
 
-    /// <summary>
-    /// The 'ConcreteFlyweight' class
-    /// </summary>
-    class ConcreteFlyweight : Flyweight 
-    {
-        public override void Operation(int extrinsicstate)
-        {
-            Console.WriteLine("ConcreteFlyweight: " + extrinsicstate);
-        }
-    }
-    
     /// <summary>
     /// MainApp startup class for Structural 
     /// Flyweight Design Pattern.
@@ -60,9 +61,9 @@ namespace DoFactory.GangOfFour.Flyweight.Structural
             FlyweightFactory factory = new FlyweightFactory(); // shared objects is declared once, stored in mermory, then used many times
 
             // Work with different flyweight instances
-            Flyweight fx = (Flyweight)factory.flyweights["X"]; // intrinsic states
+            Flyweight fx = factory.GetFlyweight("X");
             fx.Operation(--extrinsicstate);
-            
+
 
             Flyweight fy = factory.GetFlyweight("Y");
             fy.Operation(--extrinsicstate);
@@ -70,8 +71,8 @@ namespace DoFactory.GangOfFour.Flyweight.Structural
             Flyweight fz = factory.GetFlyweight("Z");
             fz.Operation(--extrinsicstate);
 
-            ConcreteFlyweight fu = new ConcreteFlyweight(); // extrinsic state
-            fu.Operation(--extrinsicstate);
+            ConcreteFlyweight fa = new ConcreteFlyweight();
+            fa.Operation(--extrinsicstate);
 
             // Wait for user
             Console.ReadKey();
