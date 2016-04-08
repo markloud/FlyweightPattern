@@ -16,12 +16,12 @@ namespace DoFactory.GangOfFour.Flyweight.Structural
     /// </summary>
     class FlyweightFactory
     {
-        private Hashtable flyweights = new Hashtable(); // used to store concrete classes
+        public Hashtable flyweights = new Hashtable(); // used to store concrete classes
 
         // Constructor
         public FlyweightFactory()
         {
-            flyweights.Add("X", new ConcreteFlyweight());
+            flyweights.Add("X", new ConcreteFlyweight()); // small number of objects
             flyweights.Add("Y", new ConcreteFlyweight());
             flyweights.Add("Z", new ConcreteFlyweight());
         }
@@ -57,11 +57,12 @@ namespace DoFactory.GangOfFour.Flyweight.Structural
             // Arbitrary extrinsic state
             int extrinsicstate = 22;
 
-            FlyweightFactory factory = new FlyweightFactory();
+            FlyweightFactory factory = new FlyweightFactory(); // shared objects is declared once, stored in mermory, then used many times
 
             // Work with different flyweight instances
-            Flyweight fx = factory.GetFlyweight("X");
+            Flyweight fx = (Flyweight)factory.flyweights["X"]; // intrinsic states
             fx.Operation(--extrinsicstate);
+            
 
             Flyweight fy = factory.GetFlyweight("Y");
             fy.Operation(--extrinsicstate);
@@ -69,8 +70,7 @@ namespace DoFactory.GangOfFour.Flyweight.Structural
             Flyweight fz = factory.GetFlyweight("Z");
             fz.Operation(--extrinsicstate);
 
-            ConcreteFlyweight fu = new ConcreteFlyweight();
-
+            ConcreteFlyweight fu = new ConcreteFlyweight(); // extrinsic state
             fu.Operation(--extrinsicstate);
 
             // Wait for user
